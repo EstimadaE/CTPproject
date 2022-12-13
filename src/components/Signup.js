@@ -10,9 +10,9 @@ export default function Signup() {
   const { signup } = useAuth()
   const [error, setError] = useState("")
   const [loading, setLoading] = useState(false)
-  const history = useNavigate()
+  const navigate = useNavigate()
 
-  async function handleSubmit(e) {
+  /*const handleSubmit = async(e) => {
     e.preventDefault()
 
     if (passwordRef.current.value !== passwordConfirmRef.current.value) {
@@ -30,6 +30,20 @@ export default function Signup() {
 
     setLoading(false)
   }
+  */
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setError('');
+    try {
+      await signup(emailRef.current.value, passwordRef.current.value);
+      navigate('/dashboard')
+    } catch (e) {
+      setError(e.message);
+      console.log(e.message);
+    }
+  };
+
 
   return (
     <>

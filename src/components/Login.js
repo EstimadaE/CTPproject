@@ -9,9 +9,9 @@ export default function Login() {
   const { login } = useAuth()
   const [error, setError] = useState("")
   const [loading, setLoading] = useState(false)
-  const history = useNavigate()
+  const navigate = useNavigate()
 
-  async function handleSubmit(e) {
+  /*async function handleSubmit(e) {
     e.preventDefault()
 
     try {
@@ -24,7 +24,20 @@ export default function Login() {
     }
 
     setLoading(false)
-  }
+  }*/
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setError('')
+    try {
+      await login(emailRef.current.value, passwordRef.current.value)
+      navigate('/dashboard')
+    } catch (e) {
+      setError(e.message)
+      console.log(e.message)
+    }
+  };
+
 
   return (
     <>
